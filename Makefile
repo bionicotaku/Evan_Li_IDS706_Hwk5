@@ -1,13 +1,20 @@
 install:
 	pip install --upgrade pip &&\
-		pip install --prefer-binary -r requirements.txt
-test:
-	python -m pytest -vv --cov=main test_*.py
+	pip install -r requirements.txt
 
-format:	
-	black *.py 
+test:
+	python -m pytest -vv -cov=mylib -cov=main test_*.py
+
+format:
+	black *.py
 
 lint:
-	pylint --disable=R,C --ignore-patterns=test_.*?py *.py
-		
-all: install lint format test 
+	ruff check *.py mylib/*.py test_*.py
+
+run:
+	python main.py
+
+# container-lint:
+# 	docker run --rm -i hadolint/hadolint < Dockerfile
+	
+all: install format test lint run

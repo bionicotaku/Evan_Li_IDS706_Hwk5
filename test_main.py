@@ -1,8 +1,3 @@
-"""
-Test goes here
-
-"""
-
 from main import os_and_sys_version
 
 
